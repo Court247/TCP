@@ -1,7 +1,7 @@
 
 # client
 
- # Import socket module
+# Import socket module
 from socket import *
 import sys
 
@@ -12,12 +12,10 @@ s = socket(AF_INET, SOCK_STREAM)
 size = 1000
 
 # user input for ip
-print("Provide Server IP: ")
-ip_address = input()
+ip_address = input("Provide Server IP: ")
 
 # user input for port number
-print("Provide Port number: ")
-port = input()
+port = int(input("Provide Port number: "))
 
 #connect to server
 s.connect((ip_address, port))

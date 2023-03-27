@@ -1,17 +1,30 @@
 # server
 
-from socket import *               # Import socket module
+# Import socket module
+from socket import *
 import sys
 
-s = socket(AF_INET, SOCK_STREAM)             # Create a socket object
-size = 1000                         #max size to be sent
-print("Provide Port number: ")
-port = input()
+# Create a socket object
+s = socket(AF_INET, SOCK_STREAM)
 
-s.bind(('' , port))            # Bind to the port
-s.listen(100)                     # Now wait for client connection.
+#max size of bytes
+size = 1000
 
-clientS, addr = s.accept()     # Establish connection with client.
+#set host address
+host = '0.0.0.0'
+
+#give port number
+port = int(input("Provide Port number: "))
+
+# Bind to the port
+s.bind(('' , port))
+
+# Now wait for client connection.
+s.listen(100)
+
+
+# Establish connection with client.
+clientS, addr = s.accept()
 
 print("Provide filename: ")
 fileName = input()
