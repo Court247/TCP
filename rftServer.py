@@ -47,11 +47,14 @@ while(True):
 	
 	#client.send(filesize.encode(FORMAT))
 	
-	with open(fileName, "r") as file:
-		data = file.read()
-		print("Sending the file...")
-		client.send(data.encode(FORMAT))
+	file = open(fileName, "rb") 
+	data = file.read(size)
+	
+	while(data):
 		
+		print("Sending the file...")
+		client.send(data)
+		data = file.read(size)
 	
 	#close the file
 	file.close()
