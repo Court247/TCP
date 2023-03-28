@@ -37,30 +37,30 @@ while(True):
 	
 	#recieve file name from client
 	f = client.recv(size).decode()
-	getFileName = f.split(" ")
-	fileName = getFileName[1]
+	print("1: ", str(f))
 	
-	fileinfo = os.stat(fileName)
-	filesize = str(fileinfo.st_size)
+	if f != 'CLOSE':
 	
-	print("Asking for file ", fileName)
-	
-	#client.send(filesize.encode(FORMAT))
-	
-	file = open(fileName, "rb") 
-	data = file.read(size)
-	
-	while(data):
+		getFileName = f.split(" ")
+		print('2: ',getFileName)
+		fileName = getFileName[1]
 		
-		print("Sending the file...")
-		client.send(data)
+		print("Asking for file ", fileName)
+		
+		file = open(fileName, "rb") 
 		data = file.read(size)
-	
-	#close the file
-	file.close()
-	
-	print("Transfer Complete!")
-	
+		
+		while(data):
+			
+			print("Sending the file...")
+			client.send(data)
+			data = file.read(size)
+		
+		#close the file
+		file.close()
+		
+		print("Transfer Complete!")
+		
 	#close the server
 	server.close()
 
