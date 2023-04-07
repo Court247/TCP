@@ -62,7 +62,7 @@ while(True):
         data = file.read(size)
 
         #make the data packet
-        cPack = udt.make(seqNum, data)
+        cPack = packet.make(seqNum, data)
 
         #send the data packet
         udt.send(cPack, client, host)
