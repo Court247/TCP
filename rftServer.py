@@ -37,7 +37,6 @@ while(True):
 	
 	#recieve file name from client
 	f = client.recv(size).decode()
-	print("1: ", str(f))
 	
 	if f != 'CLOSE':
 	

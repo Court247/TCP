@@ -11,7 +11,7 @@ from HelperModule import udt
 server = socket(AF_INET, SOCK_STREAM)
 
 #set up the timer for the whole transmission
-t = timer.Timer(300)
+t = timer.Timer(180)
 
 #max size of bytes
 size = 1000
@@ -44,7 +44,7 @@ reTranCount = 0
 toSend = True
 
 #set file name
-fileName = "Test.txt"
+fileName = "pretty.jpg"
 
 print("Listening for connection at ", port)
 
@@ -62,7 +62,7 @@ while(True):
         data = file.read(size)
 
         #make the data packet
-        cPack = udt.make(seqNum, data)
+        cPack = packet.make(seqNum, data)
 
         #send the data packet
         udt.send(cPack, client, host)
