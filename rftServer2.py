@@ -83,7 +83,7 @@ while(True):
         #add transmission count
         transCount = transCount + 1
 
-    elif client.recv(size):
+    elif udt.recv(client):
         
         print('2: ')
         data2 = client.recv(size)
