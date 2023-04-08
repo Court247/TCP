@@ -45,24 +45,25 @@ while(True):
 
             #send ACK package
             udt.send(ACK, client, (ip_address,port))
+        
             #increment received seq. number
             rSeqNum = rSeqNum + 1
 
             #if the received sequence number is 1 put it back to 0
-            
+
             print('3: ')
             if rSeqNum >0:
                 print('4: ')
                 rSeqNum = rSeqNum - 1
-            
+
             print('5: ')
             file = open('Test.txt', 'wb')
-            
+
             file.write(data[1])
-            
+
             print('6: ')
         else:
-            
+
             print('7: ')
             print('Data is empty')
             break

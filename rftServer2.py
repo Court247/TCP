@@ -84,9 +84,9 @@ while(True):
         transCount = transCount + 1
 
     elif udt.recv(client):
-        
+
         print('2: ')
-        data2 = client.recv(size)
+        data2 = udt.recv(client)
 
         if(data2 == "Ack " + seqNum):
 
@@ -97,7 +97,7 @@ while(True):
 
         print('3: ')
         #send the data packet again
-        udt.send(cPack, client, host)
+        udt.send(cPack, client, addr)
 
         #add retransmission count
         reTranCount = reTranCount +1
@@ -111,7 +111,7 @@ while(True):
 
     print("Transfer Complete!")
 
-#close the server
-server.close()
+    #close the server
+    server.close()
 
-print("Connection closed, See you later!")
+    print("Connection closed, See you later!")
