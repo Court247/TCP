@@ -58,6 +58,7 @@ while(True):
 
     if toSend:
 
+        print('1: ')
         #check if file exists
         file = open(fileName, 'rb')
 
@@ -83,6 +84,8 @@ while(True):
         transCount = transCount + 1
 
     elif client.recv(size):
+        
+        print('2: ')
         data2 = client.recv(size)
 
         if(data2 == "Ack " + seqNum):
@@ -92,6 +95,7 @@ while(True):
 
     elif t.timeout:
 
+        print('3: ')
         #send the data packet again
         udt.send(cPack, client, host)
 
@@ -100,13 +104,17 @@ while(True):
 
         #start the timer again
         t.start()
+    
+    else:
+        print('4: ')
+        break
 
-    #close the file
-    file.close()
+#close the file
+file.close()
 
-    print("Transfer Complete!")
+print("Transfer Complete!")
 
-    #close the server
-    server.close()
+#close the server
+server.close()
 
-    print("Connection closed, See you later!")
+print("Connection closed, See you later!")
