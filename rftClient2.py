@@ -34,9 +34,27 @@ rSeqNum = 0
 while(True):
     rData = udt.recv(client)
     if rData:
-        data = packet.extract(rData)
-        if (data[0] == rSeqNum):
+        data = packet.extract(rData[0])
+        print(data[0],data[1])
+        if data[1] and (data[0] == rSeqNum):
+            
+            #make packet to send ACK
+            ACK = packet.make(rSeqNum)
+            
+            #send ACK package
+            udt.send(ACK, client, (ip_address,port))
+            #increment received seq. number
             rSeqNum = rSeqNum + 1
 
-        ackMsg = 'ACK' + rSeqNum
-        client.send(ackMsg.encode())
+            #if the received sequence number is 1 put it back to 0
+            if rSeqNum >0:
+                rSeqNum = rSeqNum - 1
+        else:
+            print('Data is empty')
+            break
+
+#close server
+client.close()
+
+print("Goodbye")
+

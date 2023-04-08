@@ -53,9 +53,12 @@ client, addr = server.accept()
 
 print("Connection accepted from ", addr)
 
+
 while(True):
 
     if toSend:
+
+        #check if file exists
         file = open(fileName, 'rb')
 
         #get the file size bytes
@@ -65,7 +68,7 @@ while(True):
         cPack = packet.make(seqNum, data)
 
         #send the data packet
-        udt.send(cPack, client, host)
+        udt.send(cPack, client, addr)
 
         #start the timer
         t.start()
@@ -77,7 +80,7 @@ while(True):
         toSend = False
 
         #add transmission count
-        transCount = transCount+1
+        transCount = transCount + 1
 
     elif client.recv(size):
         data2 = client.recv(size)
@@ -103,7 +106,7 @@ while(True):
 
     print("Transfer Complete!")
 
-	#close the server
+    #close the server
     server.close()
 
     print("Connection closed, See you later!")
