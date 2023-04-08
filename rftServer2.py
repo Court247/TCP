@@ -105,14 +105,11 @@ while(True):
         #start the timer again
         t.start()
     
-    else:
-        print('4: ')
-        break
 
-#close the file
-file.close()
+    #close the file
+    file.close()
 
-print("Transfer Complete!")
+    print("Transfer Complete!")
 
 #close the server
 server.close()
