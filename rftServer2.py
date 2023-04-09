@@ -96,7 +96,7 @@ while(True):
         rSeqNum, rData = packet.extract(rPack)
 
         
-        if (rData == "Ack " + seqNum) and rSeqNum == seqNum:
+        if (rData == "Ack %d", seqNum) and rSeqNum == seqNum:
             print('2: ')
             t.stop()
             toSend = True
