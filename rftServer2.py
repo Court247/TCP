@@ -64,6 +64,8 @@ while(True):
 
         #get the file size bytes
         data = file.read(size)
+        
+        print(data)
 
         #make the data packet
         cPack = packet.make(seqNum, bytes(data, FORMAT))
