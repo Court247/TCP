@@ -11,7 +11,7 @@ from HelperModule import timer
 client = socket(AF_INET, SOCK_STREAM)
 
 #create timer for transmission
-t = timer.Timer(300)
+t = timer.Timer(1)
 
 #max size allowed
 size = 1000
@@ -28,53 +28,54 @@ port = int(input("Provide Port number: "))
 #connect to server
 client.connect((ip_address, port))
 
-#recieved sequence number
-rSeqNum = 0
+#expected sequence number
+exSeq = 0
 
-while(True):
-    rData = udt.recv(client)
-    if rData:
-        data = packet.extract(rData[0])
+try:
+    while(True):
+        rPack,addr = udt.recv(client)
+
+        rSeqNum, data = packet.extract(rPack)
+
         print('1: ')
-        print(data[0],data[1])
-        if data[1] and (data[0] == rSeqNum):
-            
+        print(rSeqNum, data)
+
+        if data and (rSeqNum == exSeq):
+
             print('2: ')
             #make packet to send ACK
-            ACK = packet.make(rSeqNum)
+            ACK = packet.make(rSeqNum,bytes("ACK "+ rSeqNum, FORMAT))
 
             #send ACK package
             udt.send(ACK, client, (ip_address,port))
-        
+
             #increment received seq. number
-            rSeqNum = rSeqNum + 1
+            exSeq = exSeq + 1
 
             #if the received sequence number is 1 put it back to 0
-
             print('3: ')
-            if rSeqNum >0:
+            if exSeq >0:
                 print('4: ')
-                rSeqNum = rSeqNum - 1
+                exSeq = exSeq - 1
 
             print('5: ')
             file = open('Test.txt', 'wb')
 
-            file.write(data[1])
+            file.write(data)
 
             print('6: ')
-        else:
 
-            print('7: ')
-            print('Data is empty')
-            break
+finally:
 
-print('8: ')
-#close file
-file.close()
+    print('Transfer Done')
 
-print('9: ')
-#close server
-client.close()
+    print('8: ')
+    #close file
+    file.close()
 
-print("Goodbye")
+    print('9: ')
+    #close server
+    client.close()
+
+    print("Goodbye")
 

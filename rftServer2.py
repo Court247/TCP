@@ -11,7 +11,7 @@ from HelperModule import udt
 server = socket(AF_INET, SOCK_STREAM)
 
 #set up the timer for the whole transmission
-t = timer.Timer(300)
+t = timer.Timer(1)
 
 #max size of bytes
 size = 1000
@@ -66,7 +66,7 @@ while(True):
         data = file.read(size)
 
         #make the data packet
-        cPack = packet.make(seqNum, data)
+        cPack = packet.make(seqNum, bytes(data, FORMAT))
 
         #send the data packet
         udt.send(cPack, client, addr)
@@ -74,6 +74,10 @@ while(True):
         #start the timer
         t.start()
 
+        while t.running() and not t.timeout():
+            print("timer running")
+            continue
+        
         #increment sequence number
         seqNum = seqNum + 1
 
@@ -83,15 +87,19 @@ while(True):
         #add transmission count
         transCount = transCount + 1
 
-    elif udt.recv(client):
+        #receive the ACK package from UDT
+        rPack, rAddr = udt.recv(client)
 
-        print('2: ')
-        data2 = udt.recv(client)
+        #extract the package
+        rSeqNum, rData = packet.extract(rPack)
 
-        if(data2 == "Ack " + seqNum):
-
+        
+        if (rData == "Ack " + seqNum) and rSeqNum == seqNum:
+            print('2: ')
             t.stop()
             toSend = True
+        else :
+            print("Wrong seq number")
 
     elif t.timeout:
 
@@ -104,7 +112,6 @@ while(True):
 
         #start the timer again
         t.start()
-    
 
     #close the file
     file.close()
