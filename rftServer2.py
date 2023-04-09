@@ -76,9 +76,9 @@ while(True):
         #start the timer
         t.start()
 
-        while t.running() and not t.timeout():
-            print("timer running")
-            continue
+        #while t.running() and not t.timeout():
+            #print("timer running")
+            #continue
         
         #increment sequence number
         seqNum = seqNum + 1
@@ -110,7 +110,7 @@ while(True):
         udt.send(cPack, client, addr)
 
         #add retransmission count
-        reTranCount = reTranCount +1
+        reTranCount = reTranCount + 1
 
         #start the timer again
         t.start()
@@ -119,6 +119,8 @@ while(True):
     file.close()
 
     print("Transfer Complete!")
+    print("Transmission:  ", transCount)
+    print("Retransmission: ", reTranCount)
 
     #close the server
     server.close()
