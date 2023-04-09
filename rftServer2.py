@@ -60,7 +60,7 @@ while(True):
 
         print('1: ')
         #check if file exists
-        file = open(fileName, 'rb')
+        file = open(fileName, 'r')
 
         #get the file size bytes
         data = file.read(size)
