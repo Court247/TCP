@@ -68,7 +68,7 @@ while(True):
         print(data)
 
         #make the data packet
-        cPack = packet.make(seqNum, bytes(data, FORMAT))
+        cPack = packet.make(seqNum, bytes(data, encoding = FORMAT))
 
         #send the data packet
         udt.send(cPack, client, addr)
