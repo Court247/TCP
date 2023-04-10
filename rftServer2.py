@@ -104,6 +104,8 @@ try:
                 #set send to true
                 toSend = True
 
+                #increment sequence number
+                seqNum = seqNum + 1
             else :
                 #else it's the wrong packet and resend current packet
                 print("Wrong seq number")
@@ -119,9 +121,6 @@ try:
                 #start the timer again
                 t.start()
 
-            #increment sequence number
-            seqNum = seqNum + 1
-            
 finally:
     #close the file
     file.close()
