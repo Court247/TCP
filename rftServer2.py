@@ -64,7 +64,7 @@ while(True):
 
         #get the file size bytes
         data = file.read(size)
-        
+
         print(data)
 
         #make the data packet
@@ -79,9 +79,6 @@ while(True):
         #while t.running() and not t.timeout():
             #print("timer running")
             #continue
-        
-        #increment sequence number
-        seqNum = seqNum + 1
 
         #set to send to false
         toSend = False
@@ -95,25 +92,35 @@ while(True):
         #extract the package
         rSeqNum, rData = packet.extract(rPack)
 
-        
+
+        #if the sequence numbers are the same then it's good to send the next packet
         if (rData == "Ack " + str(seqNum)) and rSeqNum == seqNum:
+
             print('2: ')
+
+            #stop the timer
             t.stop()
+
+            #set send to true
             toSend = True
+
         else :
+            #else it's the wrong packet and resend current packet
             print("Wrong seq number")
 
-    elif t.timeout:
+            print('3: ')
 
-        print('3: ')
-        #send the data packet again
-        udt.send(cPack, client, addr)
+            #send the data packet again
+            udt.send(cPack, client, addr)
 
-        #add retransmission count
-        reTranCount = reTranCount + 1
+            #add retransmission count
+            reTranCount = reTranCount + 1
 
-        #start the timer again
-        t.start()
+            #start the timer again
+            t.start()
+
+        #increment sequence number
+        seqNum = seqNum + 1
 
     #close the file
     file.close()

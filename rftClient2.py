@@ -11,7 +11,7 @@ from HelperModule import timer
 client = socket(AF_INET, SOCK_STREAM)
 
 #create timer for transmission
-t = timer.Timer(1)
+t = timer.Timer(30)
 
 #max size allowed
 size = 1000
@@ -32,20 +32,26 @@ client.connect((ip_address, port))
 exSeq = 0
 
 try:
+
     while(True):
+
+        #set the received information
         rPack,addr = udt.recv(client)
 
+        #set the packet extraction information
         rSeqNum, data = packet.extract(rPack)
 
         print('1: ')
         print(rSeqNum, data)
 
+        #if the data is not empty and the  sequence numbers match
         if data!= b' ' and (rSeqNum == exSeq):
 
             print('2: ')
+
             #make packet to send ACK
             msg = "ACK " + str(rSeqNum)
-            print(type(msg), msg)
+
             ACK = packet.make(rSeqNum,bytes(msg, FORMAT))
 
             #send ACK package
@@ -61,8 +67,11 @@ try:
                 exSeq = exSeq - 1
 
             print('5: ')
+
+            #create the file
             file = open('Test.txt', 'wb')
 
+            #write to the file 
             file.write(data)
 
             print('6: ')
