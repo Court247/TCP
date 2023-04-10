@@ -11,7 +11,7 @@ from HelperModule import udt
 server = socket(AF_INET, SOCK_STREAM)
 
 #set up the timer for the whole transmission
-t = timer.Timer(1)
+t = timer.Timer(30)
 
 #max size of bytes
 size = 1000
@@ -96,7 +96,7 @@ while(True):
         rSeqNum, rData = packet.extract(rPack)
 
         
-        if (rData == "Ack %d", seqNum) and rSeqNum == seqNum:
+        if (rData == "Ack " + str(seqNum)) and rSeqNum == seqNum:
             print('2: ')
             t.stop()
             toSend = True

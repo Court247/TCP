@@ -40,11 +40,13 @@ try:
         print('1: ')
         print(rSeqNum, data)
 
-        if data and (rSeqNum == exSeq):
+        if data!= b' ' and (rSeqNum == exSeq):
 
             print('2: ')
             #make packet to send ACK
-            ACK = packet.make(rSeqNum,bytes("ACK "+ rSeqNum, FORMAT))
+            msg = "ACK " + str(rSeqNum)
+            print(type(msg), msg)
+            ACK = packet.make(rSeqNum,bytes(msg, FORMAT))
 
             #send ACK package
             udt.send(ACK, client, (ip_address,port))
@@ -64,6 +66,8 @@ try:
             file.write(data)
 
             print('6: ')
+        else:
+            print("File empty")
 
 finally:
 
