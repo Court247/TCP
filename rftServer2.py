@@ -57,6 +57,10 @@ print("Connection accepted from ", addr)
 file = open(fileName, 'r')
 
 try:
+    
+    #start the timer
+    t.start()
+    
     while( not t.timeout):
         print('0: ')
         if toSend:
@@ -75,8 +79,7 @@ try:
             #send the data packet
             udt.send(cPack, client, addr)
 
-            #start the timer
-            t.start()
+
 
             #while t.running() and not t.timeout():
                 #print("timer running")
