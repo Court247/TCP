@@ -54,7 +54,7 @@ client, addr = server.accept()
 print("Connection accepted from ", addr)
 
 try:
-    while(True):
+    while( not t.timeout):
 
         if toSend:
 
@@ -120,7 +120,7 @@ try:
 
                 #start the timer again
                 t.start()
-
+        
 finally:
     #close the file
     file.close()
