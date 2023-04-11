@@ -122,8 +122,10 @@ try:
                 t.start()
         
 finally:
-    #close the file
-    file.close()
+    
+    if file:
+        #close the file
+        file.close()
 
     print("Transfer Complete!")
     print("Transmission:  ", transCount)
