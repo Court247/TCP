@@ -55,7 +55,7 @@ print("Connection accepted from ", addr)
 
 try:
     while( not t.timeout):
-
+        print('0: ')
         if toSend:
 
             print('1: ')
