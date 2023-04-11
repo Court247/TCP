@@ -61,7 +61,7 @@ try:
     #start the timer
     t.start()
     
-    while( not t.timeout):
+    while t.running() and not t.timeout():
         print('0: ')
         if toSend:
 
