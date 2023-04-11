@@ -61,7 +61,7 @@ try:
     t.start()
     while t.running() and not t.timeout():
         print('0: ')
-        if not toSend:
+        if toSend:
 
             print('1: ')
 
