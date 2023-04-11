@@ -11,7 +11,7 @@ from HelperModule import udt
 server = socket(AF_INET, SOCK_STREAM)
 
 #set up the timer for the whole transmission
-t = timer.Timer(30)
+t = timer.Timer(10)
 
 #max size of bytes
 size = 1000
