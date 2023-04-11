@@ -67,41 +67,47 @@ try:
 
             print('1: ')
 
-
             #get the file size bytes
             data = file.read(size)
 
             print(data)
 
+            print('2: ')
+
             #make the data packet
             cPack = packet.make(seqNum, bytes(data, encoding = FORMAT))
+
+            print('3: ')
 
             #send the data packet
             udt.send(cPack, client, addr)
 
-
-
-            #while t.running() and not t.timeout():
-                #print("timer running")
-                #continue
+            print('4: ')
 
             #set to send to false
             toSend = False
 
+            print('5: ')
+
             #add transmission count
             transCount = transCount + 1
 
+            print('6: ')
+
+
             #receive the ACK package from UDT
             rPack, rAddr = udt.recv(client)
+            print('7: ')
 
             #extract the package
             rSeqNum, rData = packet.extract(rPack)
 
+            print('8: ')
 
             #if the sequence numbers are the same then it's good to send the next packet
             if (rData == "Ack " + str(seqNum)) and rSeqNum == seqNum:
 
-                print('2: ')
+                print('9: ')
 
                 #stop the timer
                 t.stop()
@@ -115,7 +121,7 @@ try:
                 #else it's the wrong packet and resend current packet
                 print("Wrong seq number")
 
-                print('3: ')
+                print('10: ')
 
                 #send the data packet again
                 udt.send(cPack, client, addr)
