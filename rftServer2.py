@@ -53,14 +53,16 @@ client, addr = server.accept()
 
 print("Connection accepted from ", addr)
 
+#check if file exists
+file = open(fileName, 'r')
+
 try:
     while( not t.timeout):
         print('0: ')
         if toSend:
 
             print('1: ')
-            #check if file exists
-            file = open(fileName, 'r')
+
 
             #get the file size bytes
             data = file.read(size)
